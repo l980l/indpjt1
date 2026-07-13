@@ -155,7 +155,7 @@
       <div class="flex items-center justify-between w-full md:w-auto">
         <div class="flex items-center gap-3">
           <div class="w-3 h-3 bg-neonBlue animate-ping rounded-full"></div>
-          <a href="intro.html" class="font-orbitron text-2xl font-black tracking-wider flex items-baseline gap-2 group hover:opacity-90">
+          <a href="index.html" class="font-orbitron text-2xl font-black tracking-wider flex items-baseline gap-2 group hover:opacity-90">
             I AM <span class="text-xs text-brass font-sans tracking-normal opacity-80 group-hover:text-neonBlue transition-colors">[가상 세계 아카이브]</span>
           </a>
         </div>
@@ -170,7 +170,7 @@
 
       <!-- 중앙 라우터 링크 (변경된 6개 페이지 파일명 명세 완벽 정합) -->
       <nav id="navLinks" class="hidden md:flex flex-wrap items-center justify-center gap-x-4 lg:gap-x-6 gap-y-2 text-[10px] lg:text-xs font-semibold tracking-wider font-orbitron uppercase w-full md:w-auto">
-        <a href="intro.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+        <a href="index.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
           01 // INTRO
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
         </a>
@@ -265,11 +265,11 @@
     function highlightCurrentPage() {
       const items = document.querySelectorAll('.nav-item');
       const path = window.location.pathname;
-      let pageName = path.split("/").pop() || 'intro.html';
+      let pageName = path.split("/").pop() || 'index.html';
       
-      // 파일명 없이 최상위 도메인(/)으로 진입했거나 index.html일 경우 intro.html로 자동 보정 매핑
+      // 파일명 없이 최상위 도메인(/)으로 진입했거나 index.html일 경우 index.html로 자동 보정 매핑
       if (pageName === '' || pageName === 'index.html') {
-        pageName = 'intro.html';
+        pageName = 'index.html';
       }
 
       items.forEach(item => {
