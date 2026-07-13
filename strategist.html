@@ -80,10 +80,16 @@
       background-color: #F8FAFC;
       color: #0F172A;
     }
+    /* 💡 화이트 테마일 때는 화면을 흐리게 만드는 전체 격자 필터를 제거합니다 */
+    .html-light::before {
+      display: none !important;
+    }
+    /* 💡 화이트 테마 카드 배경을 반투명이 아닌 완전 불투명한 탄탄한 흰색으로 변경합니다 */
     .html-light .glass-panel {
-      background: rgba(241, 245, 249, 0.85);
-      border: 1px solid rgba(34, 211, 238, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+      background: #FFFFFF !important; 
+      backdrop-filter: none !important;
+      border: 1px solid #CBD5E1; /* 조금 더 명확한 회색 테두리 */
+      box-shadow: 0 4px 20px 0 rgba(15, 23, 42, 0.08);
     }
     .glow-cyan {
       text-shadow: 0 0 10px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.4);
