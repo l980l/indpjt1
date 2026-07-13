@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I AM : 가상 세계 아카이브</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Orbitron & Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyberDark: '#0B0E14',
+            cyberNavy: '#161C24',
+            cyberCard: '#1E2633',
+            neonBlue: '#4A90E2',
+            neonBlueGlow: '#2171CD',
+            brass: '#CD7F32',
+            brassGlow: '#A05A15',
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            sans: ['Noto Sans KR', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 미세 스캔라인 효과 및 프리미엄 테두리 정의 */
+    body {
+      background-color: #0B0E14;
+      color: #E2E8F0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+    /* 스크롤바 디자인 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0E14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CD7F32;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4A90E2;
+    }
+    /* 홀로그램 글래스모피즘 */
+    .glass-panel {
+      background: rgba(30, 38, 51, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    .glass-panel-brass {
+      background: rgba(30, 38, 51, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(205, 127, 50, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    /* 빛나는 텍스트 효과 */
+    .glow-blue {
+      text-shadow: 0 0 10px rgba(74, 144, 226, 0.6), 0 0 20px rgba(74, 144, 226, 0.4);
+    }
+    .glow-brass {
+      text-shadow: 0 0 10px rgba(205, 127, 50, 0.6), 0 0 20px rgba(205, 127, 50, 0.4);
+    }
+    /* 애니메이션 소스 */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .pulse-glow {
+      animation: pulse-slow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-brass selection:text-white">
+
+  <!-- 뒷배경 우주 파티클 스타필드 Canvas -->
+  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- 전술 HUD 헤더: 상단 네비게이션 및 마스터 싱크율 표시기 -->
+  <header class="sticky top-0 z-50 w-full glass-panel border-b border-blue-500/20 px-4 py-3 md:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col xl:flex-row items-center justify-between gap-4">
+      
+      <!-- 프로젝트 타이틀 로고 -->
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="w-3 h-3 bg-neonBlue animate-ping rounded-full"></div>
+        <a href="#intro" class="font-orbitron text-2xl font-black tracking-wider text-white flex items-baseline gap-2 group">
+          I AM <span class="text-xs text-brass font-sans tracking-normal opacity-80 group-hover:text-neonBlue transition-colors">[가상 세계 아카이브]</span>
+        </a>
+      </div>
+
+      <!-- 네비게이션 링크 -->
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] md:text-xs font-semibold tracking-wider font-orbitron uppercase">
+        <a href="#intro" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          01 // INTRO
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#pillar-1" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          02 // EXPLORER
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#pillar-2" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          03 // CHALLENGER
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#pillar-3" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          04 // STRATEGIST
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#pillar-4" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          05 // COMRADE
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#gamification" class="hover:text-neonBlue text-blue-300 transition-colors py-1 relative group">
+          06 // SYNCHRONIZE
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+      </nav>
+
+      <!-- 오디오 조절 및 진행률 HUD -->
+      <div class="flex items-center gap-4 w-full xl:w-auto justify-end shrink-0">
+        <!-- Web Audio 음향 재생 버튼 -->
+        <button id="soundToggle" onclick="toggleSound()" class="p-2 border border-brass/40 rounded bg-cyberDark hover:bg-brass hover:text-black transition-all flex items-center gap-1.5 text-xs text-brass" title="Web Audio 음향 재생 설정">
+          <svg id="soundIcon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+            <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5C3.12 7.5 2 8.62 2 10v4c0 1.38 1.12 2.5 2.5 2.5h1.94l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06z"/>
+            <path class="wave-lines" d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM16 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+          <span id="soundText" class="font-orbitron font-bold">MUTED</span>
+        </button>
+
+        <!-- 아카이브 마스터 동조율 게이지 -->
+        <div class="flex flex-col items-end w-32 md:w-40">
+          <div class="flex justify-between w-full text-[10px] font-bold font-orbitron text-slate-400">
+            <span>SYNC RATE</span>
+            <span id="syncProgressText" class="text-neonBlue">0%</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-1 border border-slate-700">
+            <div id="syncProgressBar" class="bg-gradient-to-r from-neonBlue to-brass h-full transition-all duration-700" style="width: 0%"></div>
+          </div>
+          <div class="text-[9px] font-orbitron font-semibold text-brass mt-0.5 tracking-wider">
+            SYSTEM RANK: <span id="systemRank" class="text-white font-bold">E</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- [1구역: Intro] 타이틀 및 캐치프레이즈 메인 비주얼 구역 -->
+  <section id="intro" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 md:px-8 pt-10 pb-20 overflow-hidden">
+    <!-- 그리드 기하학 대형 레이아웃 오버레이 -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,144,226,0.1)_0%,transparent_70%)] z-0"></div>
+
+    <div class="max-w-4xl mx-auto z-10">
+      
+      <!-- 비주얼 뱃지 -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 border border-neonBlue/40 bg-cyberDark/80 rounded-full mb-6 pulse-glow">
+        <span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse"></span>
+        <span class="text-xs font-bold font-orbitron tracking-widest text-slate-300">CORE SYSTEM ONLINE // ARCHIVE DEPLOYED</span>
+      </div>
+
+      <!-- 메인 엠블럼 타이틀 -->
+      <h1 class="font-orbitron text-6xl md:text-9xl font-black tracking-tighter text-white select-none font-sans">
+        I AM <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-brass">ARCHIVE</span>
+      </h1>
+      
+      <p class="font-orbitron text-lg md:text-2xl font-semibold tracking-wider text-brass mt-4 mb-8 uppercase glow-brass">
+        VIRTUAL WORLD EXPLORATION MATRIX
+      </p>
+
+      <!-- 캐치프레이즈 -->
+      <div class="glass-panel max-w-2xl mx-auto p-6 border-l-4 border-l-brass rounded-r-lg shadow-2xl relative mb-12">
+        <div class="absolute -top-3 left-6 bg-cyberDark px-2 py-0.5 text-[10px] font-orbitron font-bold text-neonBlue border border-neonBlue/30 rounded">
+          MISSION CATCHPHRASE
+        </div>
+        <p class="text-lg md:text-xl font-medium leading-relaxed text-slate-200">
+          "도트 액션에서 디스토피아까지,<br>내가 머물렀던 완벽한 가상 세계들"
+        </p>
+      </div>
+
+      <!-- 인터랙션 호출 버튼 -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#pillar-1" onclick="playAudio('click')" class="group relative px-8 py-4 bg-transparent border border-neonBlue text-neonBlue font-orbitron font-bold text-sm tracking-widest overflow-hidden transition-all duration-300 hover:text-white rounded">
+          <span class="absolute inset-0 bg-neonBlue translate-y-full transition-transform duration-300 group-hover:translate-y-0 -z-10"></span>
+          ACCESS MEMORY CORE
+        </a>
+        <a href="#gamification" onclick="playAudio('click')" class="group relative px-8 py-4 bg-transparent border border-brass text-brass font-orbitron font-bold text-sm tracking-widest overflow-hidden transition-all duration-300 hover:text-black rounded">
+          <span class="absolute inset-0 bg-brass translate-y-full transition-transform duration-300 group-hover:translate-y-0 -z-10"></span>
+          STRIKE CO-OP SIGNAL
+        </a>
+      </div>
+
+    </div>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400 font-orbitron text-[10px] tracking-widest opacity-80 select-none animate-bounce">
+      <span>SCROLL DOWN TO UNVEIL</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+        <path d="M19 14l-7 7-7-7M19 3l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- [2구역: 1. 가상 세계의 탐험가] -->
+  <section id="pillar-1" class="py-24 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <div class="space-y-10">
+      
+      <!-- 헤더 및 연동 뱃지 상태 -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="font-orbitron text-xs font-bold text-neonBlue tracking-widest uppercase mb-1">02 // EXPLORATION DOSSIER 01</h2>
+          <h3 class="text-3xl font-black text-white glow-blue">1. 가상 세계의 탐험가 (Immersive Realm)</h3>
+        </div>
+        <span id="badge-pillar-1" class="text-xs border border-slate-600 bg-cyberDark text-slate-400 px-3 py-1 rounded font-bold font-orbitron select-none shrink-0 tracking-widest">SYNC WAITING</span>
+      </div>
+
+      <!-- 철학 및 연출 구역 -->
+      <div class="glass-panel p-6 border-l-4 border-l-neonBlue rounded-r-lg">
+        <blockquote class="text-slate-300 italic font-medium leading-relaxed mb-3">
+          "인간은 선택하고, 노예는 복종한다." (Andrew Ryan - BioShock)
+        </blockquote>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          완성도 높은 디스토피아와 정밀하게 가공된 대체역사 속에서 얻는 극한의 서사적 충격을 기록합니다. 사이버펑크 2077의 밤하늘을 수놓은 차가운 홀로그램 네온사인 아래에서 영혼을 논하던 시간, 디스아너드의 차가운 소음 속에서 그림자가 되었던 수많은 순간은 단순한 조작이 아닌 현실 세계 이상의 진동이었습니다. 킹덤컴 딜리버런스를 통해 15세기 중세 보헤미아의 거친 진흙밭 속 농노의 생존 투쟁마저도 소중한 저의 역사적 궤적이 되었습니다.
+        </p>
+      </div>
+
+      <!-- 게임 데이터 리스트 행 -->
+      <div class="space-y-3">
+        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (가상 세계 분석 보고서)</h4>
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">사이버펑크 2077</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">차가운 네온사인 아래 네온 시티를 배경으로 한 인간의 영혼과 기억의 가치를 다루는 고도의 디스토피아 RPG</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1091500/Cyberpunk_2077/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">바이오쇼크 시리즈</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">심해 도시 '랩처'와 공중 도시 '콜롬비아'를 넘나들며 자유의지와 사회 구조의 붕괴를 다룬 인류사적 서사</p>
+          </div>
+          <a href="https://store.steampowered.com/app/409710/BioShock_Remastered/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">디스아너드</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">고래 기름 연기로 가득 찬 디스토피아 제국에서 펼치는 초자연적 암살과 자유도 높은 몰입형 시뮬레이션</p>
+          </div>
+          <a href="https://store.steampowered.com/app/205100/Dishonored/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">킹덤컴: 딜리버런스</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">15세기 보헤미아의 극단적이고도 지독한 역사적 고증 속에서 평범한 일원으로 살아남아 증명하는 삶의 투쟁</p>
+          </div>
+          <a href="https://store.steampowered.com/app/379430/Kingdom_Come_Deliverance/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">33 원정대</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">시간 소멸이라는 독창적 판타지 규칙 속에서 운명에 대항해 세계의 수수께끼를 푸는 판타지 탐험</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- 동동 동조화 액션 패널 -->
+      <div class="pt-6 border-t border-slate-800 flex justify-end">
+        <button id="btn-sync-1" onclick="confirmPillarSync(1)" class="px-8 py-3 bg-cyberDark text-neonBlue border border-neonBlue/30 hover:bg-neonBlue hover:text-white font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
+          INTEGRATE MEMORY CORE <span class="text-sm">➔</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- [3구역: 2. 한계를 시험하는 도전자] -->
+  <section id="pillar-2" class="py-24 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <div class="space-y-10">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="font-orbitron text-xs font-bold text-brass tracking-widest uppercase mb-1">03 // EXPLORATION DOSSIER 02</h2>
+          <h3 class="text-3xl font-black text-white glow-brass">2. 한계를 시험하는 도전자 (Hardcore Matrix)</h3>
+        </div>
+        <span id="badge-pillar-2" class="text-xs border border-slate-600 bg-cyberDark text-slate-400 px-3 py-1 rounded font-bold font-orbitron select-none shrink-0 tracking-widest">SYNC WAITING</span>
+      </div>
+
+      <div class="glass-panel-brass p-6 border-l-4 border-l-brass rounded-r-lg">
+        <blockquote class="text-slate-300 italic font-medium leading-relaxed mb-3">
+          "망설임은 곧 패배다." (검성 아시나 잇신 - Sekiro)
+        </blockquote>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          0.1초의 차이로 생과 사의 경계를 허무는 잔혹한 세상을 동경합니다. 세키로의 차가운 검이 궤적을 그리며 튕겨나가는 금속성 마찰음, 엘든링에서 단 한 칸의 체력바를 부여잡고 보스의 종언을 향해 검을 휘두르던 초자연적 성취감은 저의 손가락 마디마디에 각인되었습니다. 국산 하드코어의 자랑인 P의 거짓 속에서 오케스트라의 지휘자 같은 정밀한 그로기 패링을 구사할 때의 전율은 수십 번의 패배를 기꺼이 거름으로 삼게 만듭니다.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (가상 세계 분석 보고서)</h4>
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">다크소울 / 엘든링</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">수많은 좌절과 극복의 과정을 거름 삼아 웅장하게 펼쳐진 황홀한 세계를 완전 정복하는 소울라이크의 표준</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">세키로</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">검날이 격돌하며 내는 파열음과 철저히 계산된 가드가 선사하는 튕겨내기(패링) 액션 카타르시스의 극한</p>
+          </div>
+          <a href="https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice_GOTY_Edition/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">P의 거짓</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">인형 도시에서 펼치는 무기 자루 조립 메커니즘과 정밀한 그로기 파괴가 주는 국산 하드코어 액션의 자부심</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1627720/Lies_of_P/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">할로우 나이트</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">숨조차 쉬기 힘들 만큼 세련된 곤충 지하 제국의 폐허를 헤매며 기어이 진실을 헤쳐나가는 깊이 있는 메트로배니아</p>
+          </div>
+          <a href="https://store.steampowered.com/app/367520/Hollow_Knight/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">데드셀</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">속도감 넘치는 미궁에서 폭풍처럼 쏟아지는 무기들을 자유롭게 조합해 가며 생존하는 완성형 하이브리드 로그라이트</p>
+          </div>
+          <a href="https://store.steampowered.com/app/588650/Dead_Cells/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex justify-end">
+        <button id="btn-sync-2" onclick="confirmPillarSync(2)" class="px-8 py-3 bg-cyberDark text-brass border border-brass/30 hover:bg-brass hover:text-black font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
+          INTEGRATE MEMORY CORE <span class="text-sm">➔</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- [4구역: 3. 선택과 전략의 마스터] -->
+  <section id="pillar-3" class="py-24 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <div class="space-y-10">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="font-orbitron text-xs font-bold text-cyan-400 tracking-widest uppercase mb-1">04 // EXPLORATION DOSSIER 03</h2>
+          <h3 class="text-3xl font-black text-white glow-blue">3. 선택과 전략의 마스터 (Logical Optimizer)</h3>
+        </div>
+        <span id="badge-pillar-3" class="text-xs border border-slate-600 bg-cyberDark text-slate-400 px-3 py-1 rounded font-bold font-orbitron select-none shrink-0 tracking-widest">SYNC WAITING</span>
+      </div>
+
+      <div class="glass-panel p-6 border-l-4 border-l-cyan-400 rounded-r-lg">
+        <blockquote class="text-slate-300 italic font-medium leading-relaxed mb-3">
+          "이 세상 모든 것은 확률과 보드의 변수 아래 설계된다." (전술 보드 철학)
+        </blockquote>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          극도의 연산과 빌드 최적화를 통해 승리를 수확하는 뇌지컬 필드입니다. 하스스톤의 최상위 전술 매치 메이킹이나 슬레이 더 스파이어의 매판 변칙적인 무작위 카드를 제어하며 최적의 유기체 같은 드로우 시너지를 짜 맞추는 행위는 차가운 전술가의 지혜를 증명합니다. 불필요한 노이즈를 철저히 제거하고, 완벽한 승리 방정식만을 남기는 것. 그것이 가상 전략 전장에서 제가 마스터 지위를 유지하는 원동력입니다.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (가상 세계 분석 보고서)</h4>
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-cyan-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span class="font-orbitron font-bold text-xs text-cyan-400 tracking-wider">하스스톤</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">단 한 장의 카드 드로우로 형세를 뒤집고 확률과 심리전을 극대화하는 정통 온라인 카드 전술</p>
+          </div>
+          <a href="https://hearthstone.blizzard.com/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-cyan-400/40 bg-cyberDark text-cyan-400 text-[10px] font-orbitron font-bold rounded hover:bg-cyan-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-cyan-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span class="font-orbitron font-bold text-xs text-cyan-400 tracking-wider">슬레이 더 스파이어</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">위기 속에서 완벽하게 유기적으로 작동하는 카드 시너지를 맞추어 나가며 우뚝 서는 전략 덱 빌딩의 정수</p>
+          </div>
+          <a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-cyan-400/40 bg-cyberDark text-cyan-400 text-[10px] font-orbitron font-bold rounded hover:bg-cyan-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex justify-end">
+        <button id="btn-sync-3" onclick="confirmPillarSync(3)" class="px-8 py-3 bg-cyberDark text-cyan-400 border border-cyan-400/30 hover:bg-cyan-400 hover:text-black font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
+          INTEGRATE MEMORY CORE <span class="text-sm">➔</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- [5구역: 4. 함께할 때 빛나는 플레이어] -->
+  <section id="pillar-4" class="py-24 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <div class="space-y-10">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="font-orbitron text-xs font-bold text-emerald-400 tracking-widest uppercase mb-1">05 // EXPLORATION DOSSIER 04</h2>
+          <h3 class="text-3xl font-black text-white glow-blue">4. 함께할 때 빛나는 플레이어 (Synergy Alliance)</h3>
+        </div>
+        <span id="badge-pillar-4" class="text-xs border border-slate-600 bg-cyberDark text-slate-400 px-3 py-1 rounded font-bold font-orbitron select-none shrink-0 tracking-widest">SYNC WAITING</span>
+      </div>
+
+      <div class="glass-panel p-6 border-l-4 border-l-emerald-400 rounded-r-lg">
+        <blockquote class="text-slate-300 italic font-medium leading-relaxed mb-3">
+          "자유와 통제 민주주의를 지키기 위해, 전원 지상 강하 개시!" (HELLDIVERS 2)
+        </blockquote>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          혼자가 아니기에 피어나는 혼돈과 우정의 용광로입니다. 헬다이버즈 2에서 적재적소에 500kg 폭탄을 아군과 함께 투하하려다 스치며 공멸하는 유쾌한 비극, 리썰 컴퍼니의 어둠 가득한 시설에서 쇳덩어리를 짊어지고 달리다가 기괴한 생명체에 쫓기며 질러댄 생생한 마이크 음성은 멀티플레이어로서 가장 뜨거운 연대를 심어주었습니다. 가치 있고 격렬한 동료와의 협동 속에서 진정한 전우가 완성됩니다.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (가상 세계 분석 보고서)</h4>
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-emerald-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-orbitron font-bold text-xs text-emerald-400 tracking-wider">헬다이버즈 2</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">동료들과 함께하는 무자비한 궤도 포격과 전장 합류 실패가 낳는 유쾌하고 자살적인 거대 우주 수호 전선</p>
+          </div>
+          <a href="https://store.steampowered.com/app/553850/HELLDIVERS_2/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-emerald-400/40 bg-cyberDark text-emerald-400 text-[10px] font-orbitron font-bold rounded hover:bg-emerald-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-emerald-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-orbitron font-bold text-xs text-emerald-400 tracking-wider">리썰 컴퍼니</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">칠흑 같은 외계 기지를 탐색하며 오직 단 한 줌의 무전기 통신에 의지해 고철을 인양해 나가는 서바이벌 코미디</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1966720/Lethal_Company/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-emerald-400/40 bg-cyberDark text-emerald-400 text-[10px] font-orbitron font-bold rounded hover:bg-emerald-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-emerald-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-orbitron font-bold text-xs text-emerald-400 tracking-wider">It Takes Two</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">이혼 위기의 부부가 가상의 인형이 되어 분할 화면 속에 숨어있는 기믹을 2인 정밀 호흡으로 완수하는 협동 마스터피스</p>
+          </div>
+          <a href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-emerald-400/40 bg-cyberDark text-emerald-400 text-[10px] font-orbitron font-bold rounded hover:bg-emerald-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-cyberNavy/80 rounded border border-slate-800 hover:border-emerald-400/30 transition-all duration-300 group">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
+            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-orbitron font-bold text-xs text-emerald-400 tracking-wider">몬스터 헌터</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed sm:w-2/3">동료 수렵단들과 꼬리를 자르고 부위 파괴를 공조하며 우정을 가다듬는 거대 몬스터 공략 레이드</p>
+          </div>
+          <a href="https://store.steampowered.com/app/582010/MONSTER_HUNTER_WORLD/" target="_blank" onclick="playAudio('click')" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-emerald-400/40 bg-cyberDark text-emerald-400 text-[10px] font-orbitron font-bold rounded hover:bg-emerald-400 hover:text-black transition-all duration-300">
+            DATABASE ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex justify-end">
+        <button id="btn-sync-4" onclick="confirmPillarSync(4)" class="px-8 py-3 bg-cyberDark text-emerald-400 border border-emerald-400/30 hover:bg-emerald-400 hover:text-black font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
+          INTEGRATE MEMORY CORE <span class="text-sm">➔</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- [6구역: Gamification] 성향 퀴즈 및 공동 방명록 참여형 요소 -->
+  <section id="gamification" class="py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="font-orbitron text-xs font-bold text-neonBlue tracking-widest uppercase mb-2">06 // USER ENGAGEMENT TERMINAL</h2>
+      <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight glow-blue">가상 동조 전술 연계</h3>
+      <p class="text-slate-400 mt-3 text-sm">
+        이곳에서 가상 세계 아카이브와의 동조화를 직접 체감할 수 있습니다. 성향 분석을 통한 뱃지 획득 및 방문자들과의 실시간 네트워킹 전선을 형성하십시오.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      
+      <!-- 좌측: 가상 세계 동조화 성향 퀴즈 모듈 -->
+      <div class="glass-panel p-6 rounded-lg border border-slate-700/60 relative">
+        <div class="absolute -top-3 left-6 bg-cyberDark px-2 py-0.5 text-[10px] font-orbitron font-bold text-neonBlue border border-neonBlue/30 rounded">
+          MODULE 01 // SYNC MATRIX TEST
+        </div>
+
+        <div id="quiz-intro-box" class="space-y-6 pt-4 text-center">
+          <div class="w-16 h-16 mx-auto stroke-current text-neonBlue animate-pulse">
+            <svg viewBox="0 0 100 100" fill="none">
+              <path d="M50 15 L85 35 L85 75 L50 95 L15 75 L15 35 Z" class="stroke-2" />
+              <path d="M15 35 L50 55 L85 35 M50 55 L50 95" />
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold text-white">가상 아카이브 동조 성향 분석</h4>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">
+            4가지 질문을 통해 당신이 가상 세계에서 발휘하는 본능적인 전투 스펙트럼과 특이점을 연산합니다. 완료 시 고성능 커스텀 홀로그램 뱃지를 드립니다.
+          </p>
+          <button onclick="startQuiz()" class="px-8 py-3 bg-neonBlue text-white font-orbitron font-bold text-xs tracking-widest rounded hover:bg-neonBlueGlow transition-colors shadow-lg shadow-neonBlue/20">
+            INITIATE DIAGNOSTIC (연산 시작)
+          </button>
+        </div>
+
+        <!-- 실시간 퀴즈 진행 HUD -->
+        <div id="quiz-play-box" class="hidden space-y-6 pt-4">
+          <div class="flex justify-between text-xs font-orbitron font-bold text-slate-400 border-b border-slate-700/60 pb-3">
+            <span>DIAGNOSIS STATUS: <span id="quiz-num">1</span> / 4</span>
+            <span id="quiz-percent" class="text-neonBlue">25% READY</span>
+          </div>
+
+          <p id="quiz-question" class="text-base md:text-lg font-bold text-white leading-relaxed">
+            질문 자리
+          </p>
+
+          <div class="space-y-3" id="quiz-options">
+            <!-- 동적 버튼 생성 -->
+          </div>
+        </div>
+
+        <!-- 퀴즈 결과 분석 모듈 -->
+        <div id="quiz-result-box" class="hidden space-y-6 pt-4 text-center">
+          <div class="p-4 bg-cyberDark rounded border border-brass/30 inline-block pulse-glow">
+            <!-- 잠금 해제 뱃지 아이콘 SVG -->
+            <svg id="badge-svg" class="w-20 h-20 text-brass stroke-current" viewBox="0 0 100 100" fill="none">
+              <!-- 다이내믹 그리기 -->
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold font-orbitron text-slate-400 tracking-wider block mb-1">YOUR ARCHIVER RATING</span>
+            <h4 id="quiz-result-title" class="text-2xl font-black text-brass glow-brass">
+              심층의 크로니클러
+            </h4>
+          </div>
+          <p id="quiz-result-desc" class="text-slate-300 text-sm leading-relaxed max-w-md mx-auto">
+            결과 디스크립션 내용이 들어갑니다.
+          </p>
+          <div class="flex justify-center gap-4">
+            <button onclick="resetQuiz()" class="px-6 py-2 border border-slate-600 hover:border-white text-slate-300 hover:text-white text-xs font-bold font-orbitron tracking-widest rounded transition-colors">
+              RE-ENTER SYSTEM
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 우측: 공동 전선 방명록 단말기 (Co-op Network Terminal) -->
+      <div class="glass-panel-brass p-6 rounded-lg border border-brass/60 relative flex flex-col justify-between">
+        <div class="absolute -top-3 left-6 bg-cyberDark px-2 py-0.5 text-[10px] font-orbitron font-bold text-brass border border-brass/30 rounded">
+          MODULE 02 // ESTABLISH CO-OP FRONT
+        </div>
+
+        <div class="pt-4 space-y-4 flex-1">
+          <h4 class="text-xl font-bold text-white flex items-center gap-2">
+            공동 전선 실시간 홀로그램 로그
+            <span class="w-2 h-2 rounded-full bg-brass animate-ping"></span>
+          </h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            같은 가상 세계를 정복하고 거닐었던 동료 아카이버(A형 타겟)들을 위한 원격 통신대입니다. 코드네임과 플랫폼, 응원을 기록하여 연대를 증명해 주십시오.
+          </p>
+
+          <!-- 방명록 리스트 -->
+          <div id="terminal-feed" class="bg-cyberDark/90 border border-slate-700/60 rounded p-4 h-56 overflow-y-auto space-y-3 font-mono text-xs">
+            <div class="text-slate-500 text-center py-10">[통신 대기 중... 접속 기록을 입력하십시오]</div>
+          </div>
+        </div>
+
+        <!-- 방명록 등록 폼 -->
+        <form id="guestbook-form" onsubmit="submitLog(event)" class="space-y-3 mt-6">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 mb-1">CODENAME (닉네임)</label>
+              <input type="text" id="log-name" required placeholder="GUEST_ARCHIVER" class="w-full bg-cyberDark border border-slate-700/80 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-brass">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 mb-1">PLATFORM (주요 기기)</label>
+              <select id="log-platform" class="w-full bg-cyberDark border border-slate-700/80 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-brass">
+                <option value="PC">PC (STEAM/EPIC)</option>
+                <option value="PLAYSTATION">PLAYSTATION 5</option>
+                <option value="XBOX">XBOX SERIES X</option>
+                <option value="NINTENDO">NINTENDO SWITCH</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-slate-400 mb-1">TRANSMISSION (통신 내용)</label>
+            <div class="flex gap-2">
+              <input type="text" id="log-msg" required placeholder="전선 합류 완료. 아카이브 동조 성공을 기원합니다." class="flex-1 bg-cyberDark border border-slate-700/80 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-brass">
+              <button type="submit" class="px-6 py-2 bg-brass text-black font-orbitron font-bold text-xs tracking-widest rounded hover:bg-yellow-600 transition-colors">
+                TRANSMIT
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 푸터: 레트로 미래형 저작권 표시선 -->
+  <footer class="border-t border-slate-800 bg-cyberDark py-12 px-4 md:px-8 text-center text-xs relative overflow-hidden">
+    <div class="max-w-7xl mx-auto space-y-4">
+      <div class="font-orbitron font-bold text-slate-500 tracking-widest">
+        SYSTEMS ARCHIVER // CHRONOS LOGICAL GRID // ESTABLISHED 2026
+      </div>
+      <p class="text-slate-500 max-w-xl mx-auto leading-relaxed">
+        본 가상 아카이브는 순수 비영리 포트폴리오 기획안으로 구성되었습니다. 도트 세계의 거친 질감부터 대도시 디스토피아의 차가운 금속성 향취까지, 우리가 머물렀던 모든 가상 세계의 우수함을 깊이 찬미합니다.
+      </p>
+      <div class="text-slate-600 font-mono text-[10px]">
+        BUILD: v1.0.5-LUNA-PROD // ENGINE: VANILLA CORE JS // ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT LOGIC CENTER ==================== -->
+  <script>
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'i-am-virtual-archive';
+    
+    // 유저 상호작용 추적 객체
+    let syncState = {
+      scrollTrigger: false, // 스크롤 진행 여부 (15%)
+      pillarsRead: [false, false, false, false], // 각 4대 필라 인라인 승인 여부 (각 15% * 4 = 60%)
+      quizDone: false, // 성향 퀴즈 완료 여부 (15%)
+      logSubmitted: false // 방명록 통신 전송 여부 (10%)
+    };
+
+    // 실시간 방명록 리스트 인메모리 저장 (초기 목업 제공)
+    let mockLogs = [
+      { name: "NEO_PILOT", platform: "PC", msg: "디스아너드 디스토피아 깊이에 동조합니다. 웅장한 아카이브네요!", date: "2026.07.10 12:45" },
+      { name: "SOULS_LIKE_GOD", platform: "PLAYSTATION", msg: "P의 거짓 패링 소리가 귓가에 맴돕니다. 전선 수립 완료!", date: "2026.07.10 15:30" }
+    ];
+
+    // Web Audio 컨텍스트 변수 및 무음 모드 여부
+    let audioCtx = null;
+    let isSoundMuted = true; // 브라우저 자동 재생 방침으로 인해 기본 Muted 권장
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function toggleSound() {
+      initAudio();
+      isSoundMuted = !isSoundMuted;
+      
+      const soundText = document.getElementById('soundText');
+      const soundIcon = document.getElementById('soundIcon');
+      
+      if (isSoundMuted) {
+        soundText.textContent = 'MUTED';
+        soundText.classList.remove('text-brass');
+        soundText.classList.add('text-slate-400');
+        soundIcon.classList.add('opacity-40');
+      } else {
+        soundText.textContent = 'SYSTEM ON';
+        soundText.classList.add('text-brass');
+        soundText.classList.remove('text-slate-400');
+        soundIcon.classList.remove('opacity-40');
+        playAudio('fanfare'); // 켜질 때 고품격 팬페어 효과
+      }
+    }
+
+    // 신디사이저 핵심 재생 메커니즘
+    function playAudio(type) {
+      if (isSoundMuted) return;
+      initAudio();
+      
+      const now = audioCtx.currentTime;
+
+      switch(type) {
+        case 'click':
+          const oscClick = audioCtx.createOscillator();
+          const gainClick = audioCtx.createGain();
+          oscClick.type = 'triangle';
+          oscClick.frequency.setValueAtTime(1200, now);
+          oscClick.frequency.exponentialRampToValueAtTime(150, now + 0.1);
+          gainClick.gain.setValueAtTime(0.15, now);
+          gainClick.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+          oscClick.connect(gainClick);
+          gainClick.connect(audioCtx.destination);
+          oscClick.start(now);
+          oscClick.stop(now + 0.1);
+          break;
+
+        case 'hover':
+          const oscHover = audioCtx.createOscillator();
+          const gainHover = audioCtx.createGain();
+          oscHover.type = 'sine';
+          oscHover.frequency.setValueAtTime(880, now);
+          gainHover.gain.setValueAtTime(0.02, now);
+          gainHover.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          oscHover.connect(gainHover);
+          gainHover.connect(audioCtx.destination);
+          oscHover.start(now);
+          oscHover.stop(now + 0.05);
+          break;
+
+        case 'success':
+          const steps = [523.25, 659.25, 783.99, 1046.50];
+          steps.forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+            gain.gain.setValueAtTime(0.1, now + idx * 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.005, now + idx * 0.1 + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.1);
+            osc.stop(now + idx * 0.1 + 0.25);
+          });
+          break;
+
+        case 'fanfare':
+          const rootNotes = [261.63, 349.23, 392.00, 523.25];
+          rootNotes.forEach((freq, idx) => {
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc1.type = 'sawtooth';
+            osc2.type = 'sine';
+            osc1.frequency.setValueAtTime(freq, now + idx * 0.15);
+            osc2.frequency.setValueAtTime(freq * 1.01, now + idx * 0.15);
+            gain.gain.setValueAtTime(0.06, now + idx * 0.15);
+            gain.gain.exponentialRampToValueAtTime(0.002, now + idx * 0.15 + 0.5);
+            osc1.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc1.start(now + idx * 0.15);
+            osc2.start(now + idx * 0.15);
+            osc1.stop(now + idx * 0.15 + 0.5);
+            osc2.stop(now + idx * 0.15 + 0.5);
+          });
+          break;
+      }
+    }
+
+    function updateSyncProgress() {
+      let totalRate = 0;
+      
+      // 1. 스크롤 동조
+      if (syncState.scrollTrigger) totalRate += 15;
+      
+      // 2. 각 필라 탐독 동조 (필라당 15%)
+      syncState.pillarsRead.forEach(read => {
+        if (read) totalRate += 15;
+      });
+
+      // 3. 성향 분석 완료 동조
+      if (syncState.quizDone) totalRate += 15;
+
+      // 4. 전선 방명록 연결 동조
+      if (syncState.logSubmitted) totalRate += 10;
+
+      // UI 요소 실시간 적용
+      const progressBar = document.getElementById('syncProgressBar');
+      const progressText = document.getElementById('syncProgressText');
+      const systemRank = document.getElementById('systemRank');
+
+      progressBar.style.width = `${totalRate}%`;
+      progressText.textContent = `${totalRate}%`;
+
+      // 랭킹 산정 로직
+      let rank = 'E';
+      let rankColorClass = 'text-white';
+      
+      if (totalRate >= 100) {
+        rank = 'SSS (MASTER)';
+        rankColorClass = 'text-yellow-400 font-extrabold animate-pulse glow-brass';
+        if (progressBar.dataset.achieved !== 'true') {
+          playAudio('fanfare');
+          progressBar.dataset.achieved = 'true';
+        }
+      } else if (totalRate >= 80) {
+        rank = 'S (VETERAN)';
+        rankColorClass = 'text-brass font-bold';
+      } else if (totalRate >= 50) {
+        rank = 'A (EXPLORER)';
+        rankColorClass = 'text-neonBlue';
+      } else if (totalRate >= 30) {
+        rank = 'B (RECRUIT)';
+        rankColorClass = 'text-cyan-400';
+      } else if (totalRate >= 15) {
+        rank = 'C';
+        rankColorClass = 'text-slate-300';
+      }
+
+      // 랭킹 문자 업데이트 및 클래스 유기적 치환
+      systemRank.textContent = rank;
+      systemRank.className = `font-orbitron font-bold transition-all duration-300 ${rankColorClass}`;
+    }
+
+    // 특정 픽셀 스크롤 시 자동 동량 싱크 상승 보상
+    window.addEventListener('scroll', () => {
+      if (!syncState.scrollTrigger && window.scrollY > 300) {
+        syncState.scrollTrigger = true;
+        updateSyncProgress();
+      }
+    });
+
+    // 각 구역 인라인 동조화 메커니즘
+    function confirmPillarSync(pillarId) {
+      if (syncState.pillarsRead[pillarId - 1]) return; // 이미 동조화됨
+
+      // 동조화 전개 적용
+      syncState.pillarsRead[pillarId - 1] = true;
+
+      // 뱃지 상태 변경
+      const badge = document.getElementById(`badge-pillar-${pillarId}`);
+      badge.textContent = "SYNCHRONIZED";
+      badge.className = "text-xs border border-green-500 bg-green-900/40 text-green-400 px-3 py-1 rounded font-bold font-orbitron select-none shrink-0 tracking-widest animate-pulse";
+
+      // 구역 전체 테두리 발광 활성화
+      const section = document.getElementById(`pillar-${pillarId}`);
+      section.classList.add('shadow-lg', 'border-green-500/20');
+
+      // 버튼 UI 상태 변경
+      const button = document.getElementById(`btn-sync-${pillarId}`);
+      button.disabled = true;
+      button.textContent = "CORE SYNCHRONIZED ✓";
+      if (pillarId === 1) button.className = "px-8 py-3 bg-green-900/20 text-green-400 border border-green-500/40 font-orbitron font-bold text-xs tracking-widest rounded cursor-not-allowed select-none";
+      if (pillarId === 2) button.className = "px-8 py-3 bg-green-900/20 text-green-400 border border-green-500/40 font-orbitron font-bold text-xs tracking-widest rounded cursor-not-allowed select-none";
+      if (pillarId === 3) button.className = "px-8 py-3 bg-green-900/20 text-green-400 border border-green-500/40 font-orbitron font-bold text-xs tracking-widest rounded cursor-not-allowed select-none";
+      if (pillarId === 4) button.className = "px-8 py-3 bg-green-900/20 text-green-400 border border-green-500/40 font-orbitron font-bold text-xs tracking-widest rounded cursor-not-allowed select-none";
+
+      playAudio('success');
+      updateSyncProgress();
+    }
+
+    const quizData = [
+      {
+        q: "1. 가상 세계에 로그인했을 때 당신이 가장 깊은 황홀경을 느끼는 공간은?",
+        a: [
+          { text: "정교한 서사와 깊은 철학, 정밀하게 디자인된 가상 디스토피아 도시", type: "explorer" },
+          { text: "살아있는 악마와 치명적인 정예 검사들이 도사리는 사선지대", type: "challenger" },
+          { text: "논리적 인과관계가 맞물리는 계산 보드와 훈련 가상 아레나", type: "strategist" },
+          { text: "전우들과 전술 폭격을 연구하고 농담을 던지는 전선 수송선", type: "comrade" }
+        ]
+      },
+      {
+        q: "2. 완벽한 위기 돌파 국면에 직면했을 때 당신의 행동 강령은?",
+        a: [
+          { text: "오브젝트 단서를 활용해 변칙적이고 극적인 서사적 해법을 모색한다", type: "explorer" },
+          { text: "신들린 타이밍의 완전 회피와 연속 역공격으로 단신 돌파한다", type: "challenger" },
+          { text: "확률 테이블과 보유 시너지를 전부 계산해 단 1%의 리스크마저 제어한다", type: "strategist" },
+          { text: "아군에게 수송기 포격을 유도하고 서로 시야를 사수하며 함께 활로를 연다", type: "comrade" }
+        ]
+      },
+      {
+        q: "3. 당신을 플레이어로서 가장 고양하게 해주는 영혼의 승전보 순간은?",
+        a: [
+          { text: "이 거대한 가상 문명의 전말과 핵심 반전 진실을 눈으로 직접 목도했을 때", type: "explorer" },
+          { text: "수십 번 나를 죽음으로 내몰았던 고도화된 수장이 비틀거리며 쓰러졌을 때", type: "challenger" },
+          { text: "수백 가지 수식 조합 덱 빌드가 단 하나의 오차 없이 한 턴에 작렬했을 때", type: "strategist" },
+          { text: "최종 생존 셔틀선에 함께 기어 올라 동료들과 거친 숨을 내쉴 때", type: "comrade" }
+        ]
+      },
+      {
+        q: "4. 가상 세계가 당신에게 부여하는 궁극적인 두 번째 자아의 자격은?",
+        a: [
+          { text: "완벽하게 설계된 또 하나의 시공간 속 우주를 항해하는 순수한 개척자", type: "explorer" },
+          { text: "극한의 단련과 시련으로 현실의 장벽을 뛰어넘어 성장하는 도전자", type: "challenger" },
+          { text: "무질서한 변수마저 완벽한 논리로 재조립하고 설계하는 최적화 마스터", type: "strategist" },
+          { text: "경계를 뛰어넘어, 서로 등을 맞대고 영원히 회자될 전장의 추억을 쓰는 전우", type: "comrade" }
+        ]
+      }
+    ];
+
+    let currentQuizIndex = 0;
+    let quizScores = { explorer: 0, challenger: 0, strategist: 0, comrade: 0 };
+
+    function startQuiz() {
+      playAudio('click');
+      document.getElementById('quiz-intro-box').classList.add('hidden');
+      document.getElementById('quiz-play-box').classList.remove('hidden');
+      currentQuizIndex = 0;
+      quizScores = { explorer: 0, challenger: 0, strategist: 0, comrade: 0 };
+      showQuizQuestion();
+    }
+
+    function showQuizQuestion() {
+      const currentQ = quizData[currentQuizIndex];
+      document.getElementById('quiz-num').textContent = currentQuizIndex + 1;
+      
+      const readyPercent = Math.round(((currentQuizIndex + 1) / quizData.length) * 100);
+      document.getElementById('quiz-percent').textContent = `${readyPercent}% CALC READY`;
+      
+      document.getElementById('quiz-question').textContent = currentQ.q;
+
+      const optionsBox = document.getElementById('quiz-options');
+      optionsBox.innerHTML = '';
+
+      currentQ.a.forEach(option => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left p-3.5 bg-cyberDark hover:bg-cyberNavy border border-slate-700/80 rounded text-xs md:text-sm text-slate-200 transition-all hover:border-neonBlue flex items-center gap-3";
+        btn.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span> ${option.text}`;
+        btn.addEventListener('mouseenter', () => playAudio('hover'));
+        btn.addEventListener('click', () => selectAnswer(option.type));
+        optionsBox.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(type) {
+      playAudio('click');
+      quizScores[type]++;
+      currentQuizIndex++;
+
+      if (currentQuizIndex < quizData.length) {
+        showQuizQuestion();
+      } else {
+        showQuizResult();
+      }
+    }
+
+    function showQuizResult() {
+      document.getElementById('quiz-play-box').classList.add('hidden');
+      document.getElementById('quiz-result-box').classList.remove('hidden');
+
+      let highestType = 'explorer';
+      let maxScore = -1;
+
+      for (const [type, score] of Object.entries(quizScores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          highestType = type;
+        }
+      }
+
+      const resultTitle = document.getElementById('quiz-result-title');
+      const resultDesc = document.getElementById('quiz-result-desc');
+      const badgeSvg = document.getElementById('badge-svg');
+
+      let colorGlow = '#4A90E2';
+      let svgInternal = '';
+
+      if (highestType === 'explorer') {
+        resultTitle.textContent = "가상 심원의 우주적 탐험가 (Void Chrono-Explorer)";
+        resultTitle.className = "text-xl md:text-2xl font-black text-neonBlue glow-blue";
+        resultDesc.textContent = "당신은 가상 세계의 깊은 설정, 디스토피아적 연출, 심오한 세계관이 발휘하는 인력에 이끌려 들어갑니다. 스펙타클한 서사에서 영원한 고향을 찾은 지성형 인재입니다.";
+        colorGlow = '#4A90E2';
+        svgInternal = `
+          <circle cx="50" cy="50" r="40" stroke="#4A90E2" stroke-width="2" stroke-dasharray="4" />
+          <polygon points="50,15 62,50 50,85 38,50" fill="#4A90E2" opacity="0.8" />
+          <circle cx="50" cy="50" r="8" fill="#CD7F32" />
+        `;
+      } else if (highestType === 'challenger') {
+        resultTitle.textContent = "한계 돌파의 완전 지배자 (Indomitable Challenger)";
+        resultTitle.className = "text-xl md:text-2xl font-black text-brass glow-brass";
+        resultDesc.textContent = "당신은 절대 정복 불가능해 보이는 절망적 전투, 패링 한 번에 모든 것을 거는 하드코어 액션 카타르시스에 지배된 피지컬 괴수입니다. 포기는 오직 수련을 위한 과정에 불과합니다.";
+        colorGlow = '#CD7F32';
+        svgInternal = `
+          <polygon points="50,10 85,45 50,80 15,45" stroke="#CD7F32" stroke-width="2" />
+          <line x1="50" y1="10" x2="50" y2="80" stroke="#CD7F32" stroke-width="3" />
+          <line x1="20" y1="45" x2="80" y2="45" stroke="#CD7F32" stroke-width="1" />
+          <circle cx="50" cy="45" r="5" fill="#4A90E2" />
+        `;
+      } else if (highestType === 'strategist') {
+        resultTitle.textContent = "가상 필드의 논리적 설계자 (Perfect Strategist)";
+        resultTitle.className = "text-xl md:text-2xl font-black text-cyan-400 glow-blue";
+        resultDesc.textContent = "불필요한 타격은 피하고, 최소한의 수로 완벽한 시너지를 작렬하여 전세를 끝냅니다. 확률을 계산하고 완벽하게 구축한 시너지 덱 빌드로 승리를 거머쥐는 계산형 천재입니다.";
+        colorGlow = '#22D3EE';
+        svgInternal = `
+          <rect x="25" y="25" width="50" height="50" rx="10" stroke="#22D3EE" stroke-width="2" />
+          <line x1="25" y1="50" x2="75" y2="50" stroke="#22D3EE" stroke-width="1" stroke-dasharray="2" />
+          <line x1="50" y1="25" x2="50" y2="75" stroke="#22D3EE" stroke-width="1" stroke-dasharray="2" />
+          <circle cx="50" cy="50" r="10" fill="#22D3EE" />
+        `;
+      } else if (highestType === 'comrade') {
+        resultTitle.textContent = "전장의 위대한 참모 총장 (Supreme Co-op Commando)";
+        resultTitle.className = "text-xl md:text-2xl font-black text-emerald-400 glow-blue";
+        resultDesc.textContent = "당신은 혼자일 때는 평화로우나 동료들과 화염 속으로 다이빙하는 순간 그 어떤 불사신보다 영웅적인 전우애를 보여줍니다. 웃음과 전선을 주도하는 마당발 아카이버입니다.";
+        colorGlow = '#34D399';
+        svgInternal = `
+          <polygon points="50,15 85,75 15,75" stroke="#34D399" stroke-width="3" />
+          <circle cx="50" cy="45" r="6" fill="#34D399" />
+          <circle cx="35" cy="65" r="6" fill="#CD7F32" />
+          <circle cx="65" cy="65" r="6" fill="#4A90E2" />
+        `;
+      }
+
+      badgeSvg.innerHTML = svgInternal;
+      badgeSvg.style.color = colorGlow;
+
+      if (!syncState.quizDone) {
+        syncState.quizDone = true;
+        playAudio('success');
+        updateSyncProgress();
+      }
+    }
+
+    function resetQuiz() {
+      playAudio('click');
+      document.getElementById('quiz-result-box').classList.add('hidden');
+      document.getElementById('quiz-intro-box').classList.remove('hidden');
+    }
+
+    function renderLogs() {
+      const feed = document.getElementById('terminal-feed');
+      feed.innerHTML = '';
+
+      mockLogs.forEach(log => {
+        const item = document.createElement('div');
+        item.className = "p-2.5 bg-cyberNavy border-l-2 border-l-brass rounded text-slate-300 space-y-1";
+        
+        let platformTag = `<span class="text-[9px] bg-slate-800 text-slate-400 px-1 rounded">${log.platform}</span>`;
+        
+        if (log.platform === 'PC') {
+          platformTag = `<span class="text-[9px] bg-zinc-800/40 text-zinc-400 border border-zinc-700/50 px-1.5 py-0.5 rounded font-orbitron font-bold">PC</span>`;
+        } else if (log.platform === 'PLAYSTATION') {
+          platformTag = `<span class="text-[9px] bg-blue-950/40 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded font-orbitron font-bold">PLAYSTATION</span>`;
+        } else if (log.platform === 'XBOX') {
+          platformTag = `<span class="text-[9px] bg-emerald-950/40 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-orbitron font-bold">XBOX</span>`;
+        } else if (log.platform === 'NINTENDO') {
+          platformTag = `<span class="text-[9px] bg-red-950/40 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-orbitron font-bold">NINTENDO</span>`;
+        }
+
+        item.innerHTML = `
+          <div class="flex justify-between items-center text-[10px]">
+            <span class="font-bold text-white tracking-wider">&gt;&gt; ${log.name}</span>
+            <div class="flex items-center gap-1.5">
+              ${platformTag}
+              <span class="text-slate-500">${log.date}</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-200 mt-1 pl-2 border-l border-slate-800">${log.msg}</p>
+        `;
+        feed.appendChild(item);
+      });
+      
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function submitLog(e) {
+      e.preventDefault();
+      playAudio('success');
+
+      const nameInput = document.getElementById('log-name');
+      const platformInput = document.getElementById('log-platform');
+      const msgInput = document.getElementById('log-msg');
+
+      const now = new Date();
+      const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      const newLog = {
+        name: nameInput.value.toUpperCase().replace(/\s/g, '_'),
+        platform: platformInput.value,
+        msg: msgInput.value,
+        date: dateString
+      };
+
+      mockLogs.push(newLog);
+      renderLogs();
+
+      msgInput.value = '';
+
+      if (!syncState.logSubmitted) {
+        syncState.logSubmitted = true;
+        updateSyncProgress();
+      }
+    }
+
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.15;
+        this.speedY = -Math.random() * 0.4 - 0.1;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+          this.reset();
+          this.y = canvas.height;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.size > 1 ? '#CD7F32' : '#4A90E2';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const density = Math.min(60, Math.floor(window.innerWidth / 15));
+      for (let i = 0; i < density; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.onload = function() {
+      resizeCanvas();
+      initParticles();
+      animateParticles();
+      renderLogs();
+
+      const hoverElements = document.querySelectorAll('button, a, select, input');
+      hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          playAudio('hover');
+        });
+      });
+    };
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+  </script>
+</body>
+</html>
