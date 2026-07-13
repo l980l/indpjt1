@@ -11,7 +11,7 @@
   <!-- Google Fonts: Orbitron & Noto Sans KR -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght=300;400;500;700;900&family=Orbitron:wght=400;600;700;900&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
@@ -50,7 +50,7 @@
       display: block;
       position: fixed;
       top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.03));
       z-index: 999;
       background-size: 100% 4px, 6px 100%;
       pointer-events: none;
@@ -134,7 +134,7 @@
 </head>
 <body class="font-sans antialiased selection:bg-brass selection:text-white dark">
 
-  <!-- -->
+  <!-- 커스텀 마우스 커서 엘리먼트 -->
   <div id="customCursor" class="cursor-circle hidden md:block"></div>
   <div id="customCursorDot" class="cursor-dot hidden md:block"></div>
 
@@ -152,7 +152,7 @@
       <div class="flex items-center justify-between w-full md:w-auto">
         <div class="flex items-center gap-3">
           <div class="w-3 h-3 bg-neonBlue animate-ping rounded-full"></div>
-          <a href="index.html" class="font-orbitron text-2xl font-black tracking-wider flex items-baseline gap-2 group hover:opacity-90">
+          <a href="intro.html" class="font-orbitron text-2xl font-black tracking-wider flex items-baseline gap-2 group hover:opacity-90">
             I AM <span class="text-xs text-brass font-sans tracking-normal opacity-80 group-hover:text-neonBlue transition-colors">[가상 세계 아카이브]</span>
           </a>
         </div>
@@ -165,18 +165,30 @@
         </button>
       </div>
 
-      <!-- 중앙 라우터 링크 (경로 기준 활성화 클래스 부여) -->
-      <nav id="navLinks" class="hidden md:flex flex-col md:flex-row items-center gap-y-2 gap-x-6 text-xs md:text-sm font-semibold tracking-wider font-orbitron uppercase w-full md:w-auto">
-        <a href="index.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
-          01 // HOME
+      <!-- 중앙 라우터 링크 (변경된 6개 페이지 파일명 명세 완벽 정합) -->
+      <nav id="navLinks" class="hidden md:flex flex-wrap items-center justify-center gap-x-4 lg:gap-x-6 gap-y-2 text-[10px] lg:text-xs font-semibold tracking-wider font-orbitron uppercase w-full md:w-auto">
+        <a href="intro.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          01 // INTRO
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
         </a>
-        <a href="archive.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
-          02 // ARCHIVE MAP
+        <a href="exploration.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          02 // EXPLORATION
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
         </a>
-        <a href="network.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
-          03 // CO-OP NETWORK
+        <a href="challenger.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          03 // CHALLENGER
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="strategist.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          04 // STRATEGIST
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="comrade.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          05 // COMRADE
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
+        </a>
+        <a href="synchronize.html" class="nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-colors">
+          06 // SYNCHRONIZE
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full"></span>
         </a>
       </nav>
@@ -201,12 +213,12 @@
         <!-- 테마 전환 (다크/라이트) 토글 버튼 -->
         <button onclick="toggleTheme()" class="p-2 border border-brass/40 rounded bg-cyberDark dark:bg-transparent text-brass hover:bg-brass hover:text-black transition-all" title="테마 전환">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path id="themeIcon" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 18.01l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0z"/>
+            <path id="themeIcon" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/>
           </svg>
         </button>
 
         <!-- 아카이브 마스터 동조율 게이지 -->
-        <div class="flex flex-col items-end w-32 md:w-40">
+        <div class="flex flex-col items-end w-32 md:w-40 select-none">
           <div class="flex justify-between w-full text-[10px] font-bold font-orbitron text-slate-500 dark:text-slate-400">
             <span>SYNC RATE</span>
             <span id="syncProgressText" class="text-neonBlue font-black">0%</span>
@@ -223,118 +235,143 @@
 
     </div>
   </header>
+
+  <!-- [공통 자바스크립트 엔진 - 헤더 작동 및 활성화 자동 처리] -->
+  <script>
+    // 1. 공용 테마 토글 스위치
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      if (isDark) {
+        document.body.classList.remove('html-light');
+        localStorage.setItem('themeMode', 'dark');
+      } else {
+        document.body.classList.add('html-light');
+        localStorage.setItem('themeMode', 'light');
+      }
+    }
+
+    // 2. 모바일 반응형 햄버거 메뉴 토글
+    function toggleMobileMenu() {
+      const nav = document.getElementById('navLinks');
+      const hud = document.getElementById('hudControls');
+      if (nav) nav.classList.toggle('hidden');
+      if (hud) hud.classList.toggle('hidden');
+    }
+
+    // 3. 현재 방문 중인 페이지 감지하여 황동색 활성화 언더라인 수여 로직
+    function highlightCurrentPage() {
+      const items = document.querySelectorAll('.nav-item');
+      const path = window.location.pathname;
+      let pageName = path.split("/").pop() || 'intro.html';
+      
+      // 파일명 없이 최상위 도메인(/)으로 진입했거나 index.html일 경우 intro.html로 자동 보정 매핑
+      if (pageName === '' || pageName === 'index.html') {
+        pageName = 'intro.html';
+      }
+
+      items.forEach(item => {
+        const href = item.getAttribute('href');
+        if (pageName === href) {
+          // 활성화 스타일 적용 (황동색 빛나는 효과)
+          item.className = "nav-item text-brass font-bold border-b-2 border-brass py-1 relative group transition-all glow-brass";
+          const line = item.querySelector('span');
+          if (line) line.className = "hidden"; // 기본 호버 라인은 숨김
+        } else {
+          // 비활성화 기본 스타일 적용
+          item.className = "nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-all";
+          const line = item.querySelector('span');
+          if (line) line.className = "absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue transition-all group-hover:w-full";
+        }
+      });
+    }
+
+    // 문서 로드 완료 시 스마트 하이라이트 즉각 실행
+    document.addEventListener('DOMContentLoaded', highlightCurrentPage);
+  </script>
   <!-- [ 복사용 공통 HEADER 영역 끝 ] -->
 
-  <!-- -->
   <!-- 메인 헤더 배너 -->
   <section class="relative py-12 px-4 md:px-8 text-center overflow-hidden z-10">
     <div class="max-w-4xl mx-auto space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 border border-brass/40 bg-cyberDark/80 rounded-full mb-1">
-        <span class="w-2 h-2 rounded-full bg-brass animate-pulse"></span>
+      <div class="inline-flex items-center gap-2 px-3 py-1 border border-neonBlue/40 bg-cyberDark/80 rounded-full mb-1">
+        <span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse"></span>
         <span class="text-xs font-bold font-orbitron tracking-widest text-slate-400">DOSSIER INTERCRYSTAL MODULE</span>
       </div>
       <h1 class="font-orbitron text-4xl md:text-6xl font-black text-slate-900 dark:text-white">
-        03 // <span class="text-transparent bg-clip-text bg-gradient-to-r from-brass to-brassGlow">CHALLENGER</span>
+        03 // <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-brass">CHALLENGER</span>
       </h1>
-      <p id="explorationDesc" class="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
-        가상 세계에서 획득한 네 가지 취향 궤적들의 두 번째 전술 기록문입니다. 0.1초의 미학, 패링과 피지컬의 극을 탐독하고 메모리 코어를 동조하십시오.
+      <p id="challengerDesc" class="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+        가상 세계에서 획득한 네 가지 취향 궤적들의 두 번째 전술 기록문입니다. 서사의 층계를 탐독하고 메모리 코어를 활성화하십시오.
       </p>
     </div>
   </section>
 
-  <!-- -->
-  <!-- [3구역: 2. 한계를 시험하는 도전자] -->
+  <!-- [2구역: 2. 극한의 도전자] -->
   <section id="pillar-2" class="py-16 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-200 dark:border-slate-800 transition-all duration-500 z-10 relative">
     <div class="space-y-8">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <span class="font-orbitron text-xs font-bold text-brass tracking-widest uppercase mb-1">DATA SEGMENT 02 // HARDCORE MATRIX</span>
-          <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white glow-brass">2. 한계를 시험하는 도전자</h3>
+          <span class="font-orbitron text-xs font-bold text-neonBlue tracking-widest uppercase mb-1">DATA SEGMENT 02 // HARDCORE ARENA</span>
+          <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white glow-blue">2. 극한의 도전자</h3>
         </div>
         <span id="badge-pillar-2" class="text-xs border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-cyberDark text-slate-500 dark:text-slate-400 px-3 py-1 rounded font-bold font-orbitron tracking-widest select-none">SYNC WAITING</span>
       </div>
 
-      <div class="glass-panel p-6 border-l-4 border-l-brass rounded-r-lg">
+      <div class="glass-panel p-6 border-l-4 border-l-neonBlue rounded-r-lg">
         <blockquote class="text-slate-600 dark:text-slate-300 italic font-medium leading-relaxed mb-3">
-          "망설임은 곧 패배다." (검성 아시나 잇신 - Sekiro)
+          "망설임은 곧 패배다." (아시나 잇신 - 세키로)
         </blockquote>
         <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-          0.1초의 차이로 생과 사의 경계를 허무는 잔혹한 세상을 동경합니다. 세키로의 차가운 검이 궤적을 그리며 튕겨나가는 금속성 마찰음, 엘든링에서 단 한 칸의 체력바를 부여잡고 보스의 종언을 향해 검을 휘두르던 초자연적 성취감은 저의 손가락 마디마디에 각인되었습니다. 국산 하드코어의 자랑인 P의 거짓 속에서 오케스트라의 지휘자 같은 정밀한 그로기 패링을 구사할 때의 전율은 수십 번의 패배를 기꺼이 거름으로 삼게 만듭니다.
+          한 치의 실수도 용납하지 않는 극한의 아레나와 피할 수 없는 보스들과의 정면 대결을 기록합니다. 세키로의 차가운 검날이 맞부딪히며 내는 경쾌하지만 살벌한 패링 소리, 다크 소울의 한 치 앞을 알 수 없는 음울한 미궁을 횃불 하나에 의지해 탐험하던 기억, 엘든 링의 드넓은 황무지에서 마주한 거대한 보스들과의 사투는 제 반사신경과 의지를 시험하는 무대였습니다. 고통의 끝에서 얻는 전율은 무엇과도 바꿀 수 없는 가치입니다.
         </p>
       </div>
 
       <!-- 게임 데이터 리스트 행 -->
       <div class="space-y-3">
-        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (가상 세계 분석 보고서)</h4>
+        <h4 class="font-orbitron text-xs font-bold text-slate-400 tracking-wider">TARGET LOG (도전자의 투기장 보고서)</h4>
         
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
           <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
             <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
-              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">다크소울 / 엘든링</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">세키로: 섀도우 다이 트와이스</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">수많은 좌절과 극복의 과정을 거름 삼아 웅장하게 펼쳐진 황홀한 세계를 완전 정복하는 소울라이크의 표준</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">검과 검이 맞부딪히는 정교한 체간 시스템과 찰나의 공방을 통해 보스를 굴복시키는 액션의 극치</p>
           </div>
-          <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-slate-200 dark:bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-white transition-all duration-300">
+          <a href="https://store.steampowered.com/app/814380/SEKIRO_SHADOWS_DIE_TWICE/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-slate-200 dark:bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
             DATABASE ↗
           </a>
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
           <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
             <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
-              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">세키로</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">엘든 링 (ELDEN RING)</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">검날이 격돌하며 내는 파열음과 철저히 계산된 가드가 선사하는 튕겨내기(패링) 액션 카타르시스의 극한</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">프롬 소프트웨어의 정수가 담긴 다크 판타지 오픈월드에서 거대 군주들을 격파해 나가는 장엄한 연대기</p>
           </div>
-          <a href="https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice_GOTY_Edition/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-slate-200 dark:bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-white transition-all duration-300">
+          <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-slate-200 dark:bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
             DATABASE ↗
           </a>
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-brass/30 transition-all duration-300 group">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-neonBlue/30 transition-all duration-300 group">
           <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
             <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
-              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">P의 거짓</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-neonBlue"></span>
+              <span class="font-orbitron font-bold text-xs text-neonBlue tracking-wider">다크 소울 시리즈</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">인형 도시에서 펼치는 무기 자루 조립 메커니즘과 정밀한 그로기 파괴가 주는 국산 하드코어 액션의 자부심</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">모든 소울라이크의 기원이자 절망적인 아포칼립스 세계관 속에서 피어나는 기괴하고도 매혹적인 보스 전투의 교본</p>
           </div>
-          <a href="https://store.steampowered.com/app/1627720/Lies_of_P/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-slate-200 dark:bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-white transition-all duration-300">
-            DATABASE ↗
-          </a>
-        </div>
-
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-brass/30 transition-all duration-300 group">
-          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
-            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
-              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">할로우 나이트</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">숨조차 쉬기 힘들 만큼 세련된 곤충 지하 제국의 폐허를 헤매며 기어이 진실을 헤쳐나가는 깊이 있는 메트로배니아</p>
-          </div>
-          <a href="https://store.steampowered.com/app/367520/Hollow_Knight/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-slate-200 dark:bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-white transition-all duration-300">
-            DATABASE ↗
-          </a>
-        </div>
-
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 bg-slate-100 dark:bg-cyberNavy/80 rounded border border-slate-200 dark:border-slate-800 hover:border-brass/30 transition-all duration-300 group">
-          <div class="flex flex-col sm:flex-row sm:items-start gap-2.5 flex-1">
-            <div class="flex items-center gap-2 sm:w-1/3 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
-              <span class="font-orbitron font-bold text-xs text-brass tracking-wider">데드셀</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed sm:w-2/3">속도감 넘치는 미궁에서 폭풍처럼 쏟아지는 무기들을 자유롭게 조합해 가며 생존하는 완성형 하이브리드 로그라이트</p>
-          </div>
-          <a href="https://store.steampowered.com/app/588650/Dead_Cells/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-brass/40 bg-slate-200 dark:bg-cyberDark text-brass text-[10px] font-orbitron font-bold rounded hover:bg-brass hover:text-white transition-all duration-300">
+          <a href="https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED/" target="_blank" class="shrink-0 flex items-center justify-center gap-1 px-3 py-1.5 border border-neonBlue/40 bg-slate-200 dark:bg-cyberDark text-neonBlue text-[10px] font-orbitron font-bold rounded hover:bg-neonBlue hover:text-white transition-all duration-300">
             DATABASE ↗
           </a>
         </div>
       </div>
 
       <div class="pt-4 flex justify-end">
-        <button id="btn-sync-2" onclick="confirmPillarSync(2)" class="px-8 py-3 bg-slate-200 dark:bg-cyberDark text-brass border border-brass/30 hover:bg-brass hover:text-black font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
+        <button id="btn-sync-2" onclick="confirmPillarSync(2)" class="px-8 py-3 bg-slate-200 dark:bg-cyberDark text-neonBlue border border-neonBlue/30 hover:bg-neonBlue hover:text-white font-orbitron font-bold text-xs tracking-widest rounded transition-all duration-300 flex items-center gap-2">
           INTEGRATE MEMORY CORE <span class="text-sm">➔</span>
         </button>
       </div>
@@ -353,7 +390,6 @@
     </div>
   </footer>
 
-  <!-- -->
   <!-- ==================== JAVASCRIPT LOGIC CENTER ==================== -->
   <script>
     let audioCtx = null;
@@ -461,40 +497,21 @@
       }
     }
 
-    // 테마 토글 복원 및 전환
-    function toggleTheme() {
-      const isDark = document.body.classList.toggle('dark');
-      if (isDark) {
-        document.body.classList.remove('html-light');
-        localStorage.setItem('themeMode', 'dark');
-      } else {
-        document.body.classList.add('html-light');
-        localStorage.setItem('themeMode', 'light');
-      }
-    }
-    
+    // 초기 테마 로컬 스토리지값 복원
     if (localStorage.getItem('themeMode') === 'light') {
       document.body.classList.remove('dark');
       document.body.classList.add('html-light');
     }
 
-    // 모바일 햄버거 토글 구현
-    function toggleMobileMenu() {
-      const nav = document.getElementById('navLinks');
-      const hud = document.getElementById('hudControls');
-      if(nav) nav.classList.toggle('hidden');
-      if(hud) hud.classList.toggle('hidden');
-    }
-
-    // 다국어 번역 시스템
+    // 다국어 번역 시스템 (한국어 / 영어 지원)
     let currentLang = localStorage.getItem('lang') || 'KO';
     
     const langDictionary = {
       KO: {
-        explorationDesc: "가상 세계에서 획득한 네 가지 취향 궤적들의 두 번째 전술 기록문입니다. 0.1초의 미학, 패링과 피지컬의 극을 탐독하고 메모리 코어를 동조하십시오."
+        challengerDesc: "가상 세계에서 획득한 네 가지 취향 궤적들의 두 번째 전술 기록문입니다. 서사의 층계를 탐독하고 메모리 코어를 활성화하십시오."
       },
       EN: {
-        explorationDesc: "The second tactical chronicle of the four virtual worlds. Study the 0.1s reflex, absolute parry, and calibrate your memory core."
+        challengerDesc: "The second tactical chronicle of the four gaming style dimensions carved within virtual space. Deeply read the layers of narrative and synchronize your memory core."
       }
     };
 
@@ -507,8 +524,8 @@
     function applyTranslations() {
       const langBtnText = document.getElementById('langBtnText');
       if (langBtnText) langBtnText.textContent = currentLang === 'KO' ? 'EN' : 'KO';
-      const explorationDesc = document.getElementById('explorationDesc');
-      if (explorationDesc) explorationDesc.textContent = langDictionary[currentLang].explorationDesc;
+      const challengerDesc = document.getElementById('challengerDesc');
+      if (challengerDesc) challengerDesc.textContent = langDictionary[currentLang].challengerDesc;
     }
 
     // 글로벌 아카이브 싱크율 및 랭킹 실시간 보존 시스템
@@ -573,24 +590,6 @@
           container.classList.add('border-green-500/30', 'shadow-2xl', 'shadow-green-900/5');
         }
       }
-    }
-
-    // 스마트 경로 감지 및 HUD 전용 하이라이트 매핑 (Unmodified Navbar Compatibility)
-    function highlightCurrentPage() {
-      const items = document.querySelectorAll('.nav-item');
-      const path = window.location.pathname;
-      const pageName = path.split("/").pop() || 'index.html';
-
-      items.forEach(item => {
-        const href = item.getAttribute('href');
-        if (pageName === href || (pageName === '' && href === 'index.html')) {
-          item.className = "nav-item text-brass font-bold border-b-2 border-brass py-1 relative group transition-all glow-brass";
-          const line = item.querySelector('span');
-          if (line) line.className = "hidden";
-        } else {
-          item.className = "nav-item text-slate-500 dark:text-slate-400 hover:text-neonBlue py-1 relative group transition-all";
-        }
-      });
     }
 
     // 스크롤 진행률 연동
