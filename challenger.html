@@ -133,6 +133,13 @@
   </style>
 </head>
 <body class="font-sans antialiased selection:bg-brass selection:text-white dark">
+  <!-- 💡 페이지 로드 깜빡임 방지를 위한 테마 선제 주입 스크립트 -->
+  <script>
+    if (localStorage.getItem('themeMode') === 'light') {
+      document.body.classList.remove('dark');
+      document.body.classList.add('html-light');
+    }
+  </script>
 
   <!-- 커스텀 마우스 커서 엘리먼트 -->
   <div id="customCursor" class="cursor-circle hidden md:block"></div>
@@ -495,12 +502,6 @@
           });
           break;
       }
-    }
-
-    // 초기 테마 로컬 스토리지값 복원
-    if (localStorage.getItem('themeMode') === 'light') {
-      document.body.classList.remove('dark');
-      document.body.classList.add('html-light');
     }
 
     // 다국어 번역 시스템 (한국어 / 영어 지원)

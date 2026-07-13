@@ -133,8 +133,13 @@
   </style>
 </head>
 <body class="font-sans antialiased selection:bg-brass selection:text-white dark">
+  <script>
+    if (localStorage.getItem('themeMode') === 'light') {
+      document.body.classList.remove('dark');
+      document.body.classList.add('html-light');
+    }
+  </script>
 
-  <!-- 커스텀 마우스 커서 엘리먼트 -->
   <div id="customCursor" class="cursor-circle hidden md:block"></div>
   <div id="customCursorDot" class="cursor-dot hidden md:block"></div>
 
@@ -442,12 +447,6 @@
           });
           break;
       }
-    }
-
-    // 테마 전환 로컬 보존 동조
-    if (localStorage.getItem('themeMode') === 'light') {
-      document.body.classList.remove('dark');
-      document.body.classList.add('html-light');
     }
 
     let currentLang = localStorage.getItem('lang') || 'KO';
